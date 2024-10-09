@@ -2,6 +2,10 @@
 
  **Deployed the app via Netlify: https://vimaltodoapp.netlify.app/**
 
+ **To run the app locally, please follow the below commands**
+ - npm install
+ - npm run dev
+
 ## Development Approach
 
 ### Project Setup and Planning
