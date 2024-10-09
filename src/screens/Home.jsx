@@ -7,18 +7,18 @@ import { addTodo, updateTodo, deleteTodo, fetchTodos } from '../axios/todoApi';
 import Loader from '../components/Loader';
 
 const Home = () => {
-    const [todoList, setTodoList] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingTodoId, setEditingTodoId] = useState(null);
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [todoList, setTodoList] = useState([]);   // State to hold the list of todos
+    const [isModalOpen, setIsModalOpen] = useState(false);   // State to control modal visibility
+    const [editingTodoId, setEditingTodoId] = useState(null);   // State to track which todo is being edited
+    const [title, setTitle] = useState('');   // State for the todo title
+    const [description, setDescription] = useState('');   // State for the todo description
+    const [loading, setLoading] = useState(false);   // State to control loading indicator
 
-    const getTodos = async () => {
+    const getTodos = async () => {       // Function to fetch todos from the API
         setLoading(true);
         try {
             const fetchedTodos = await fetchTodos();
-            setTodoList(fetchedTodos);
+            setTodoList(fetchedTodos);    // Update state with fetched todos
         } catch (error) {
             toast.error('Error fetching todos.', error);
         } finally {
@@ -26,15 +26,16 @@ const Home = () => {
         }
     };
 
+     // useEffect to fetch todos on component mount
     useEffect(() => {
         getTodos();
     }, []);
 
     const addOrUpdateTodo = async () => {
-        if (!title || !description) return;
+        if (!title || !description) return;   
 
         const newTodo = {
-            title,
+            title,               // Create new todo object
             description,
         };
 
@@ -43,7 +44,7 @@ const Home = () => {
 
         try {
             if (editingTodoId) {
-                await updateTodo(editingTodoId, newTodo);
+                await updateTodo(editingTodoId, newTodo);     // Update existing todo
                 toast.info('Todo updated successfully!');
             } else {
                 await addTodo(newTodo);
@@ -62,6 +63,7 @@ const Home = () => {
         }
     };
 
+        // Function to handle todo deletion
     const handleDeleteTodo = async (id) => {
         setLoading(true);
         try {
@@ -75,12 +77,14 @@ const Home = () => {
         }
     };
 
+        // Function to clear input fields and reset editing state
     const clearInputs = () => {
         setTitle('');
         setDescription('');
         setEditingTodoId(null);
     };
 
+        // Function to open the edit modal with the selected todo's details
     const openEditModal = (todo) => {
         setEditingTodoId(todo.id);
         setTitle(todo.title);

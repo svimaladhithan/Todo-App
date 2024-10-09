@@ -2,20 +2,21 @@ import { useState, useEffect } from 'react';
 import { FiPlus } from "react-icons/fi";
 import { MdOutlineEdit, MdDeleteOutline } from "react-icons/md";
 
+// Card component to display todos or an "add" button
 const Card = ({ title, description, isAddCard, onClick, onEdit, onDelete }) => {
   const [color, setColor] = useState('');
 
-  const PastelColor = () => {
+  const PastelColor = () => {    // Function to generate a random pastel color
     const hue = Math.floor(Math.random() * 360); 
     return `hsl(${hue}, 100%, 85%)`; 
   };
 
-  useEffect(() => {
+  useEffect(() => {           // Effect to set a random color if not an "add" card
     if (!isAddCard) {
       setColor(PastelColor());
     }
   }, [isAddCard]);
-
+ 
   return (
     <div
       className={`mt-5 relative w-60 h-60 p-4 rounded-md shadow-lg transform hover:scale-105 transition duration-200 ease-in-out ${

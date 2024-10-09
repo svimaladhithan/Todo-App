@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({
+const Modal = ({      // Modal component for adding or editing todos
   isOpen,
   onClose,
   onSubmit,
